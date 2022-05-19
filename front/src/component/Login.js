@@ -116,7 +116,7 @@ export default function Login() {
                 required
                 fullWidth
                 id="id"
-                label="id"
+                label="ID"
                 name="id"
                 autoComplete="id"
                 autoFocus

@@ -3,6 +3,7 @@ const app = express()
 const port = 5000 // <- 3000에서 다른 숫자로 변경
 
 app.get('/', (req, res) => {
+	console.log("running")
   res.send('dddddd!')
 })
 
