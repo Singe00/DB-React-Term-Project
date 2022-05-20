@@ -5,6 +5,7 @@ const cors = require("cors");
 const db = require('./config/db');
 const bodyParser = require("body-parser");
 var mysql = require('mysql');
+var request = require('request');
 
 var connection = mysql.createConnection({
     host : "localhost",
@@ -13,11 +14,9 @@ var connection = mysql.createConnection({
     database : "db", //사용할 데이터베이스
 });
 
-connection.connect();
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
 
 app.get('/', (req, res) => {
 	console.log("running")
@@ -30,6 +29,12 @@ app.get('/api/info', (req, res) => {
         else res.send(err);
     })
 })
+
+app.post("/api/reg",cors(), async (req,res)=>{
+	console.log(req.body);
+	res.send({ok:true});
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
