@@ -24,15 +24,38 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/info', (req, res) => {
-    db.query("SELECT * FROM game", (err, data) => {
+    db.query("SELECT * FROM company", (err, data) => {
         if(!err) res.send({ products : data });
         else res.send(err);
     })
 })
 
 app.post("/api/reg",cors(), async (req,res)=>{
-	console.log(req.body);
-	res.send({ok:true});
+	var name = req.body.name
+	var id = req.body.ID
+	var pw = req.body.password
+	var param = [name,id,pw];
+	
+	var query = "SELECT userId FROM userInfo where userId='"+id+"';";
+	db.query(query,function(err,rows) {
+		if (rows.length==0){
+				var sql={
+				userName:name,
+				userId:id,
+				pw:pw
+			}
+
+			var query = db.query('insert into userInfo set ?',sql,function(err,rows){
+				if(err)throw err;
+				else {
+					res.send({ok:true})
+				}
+			})
+		}else {
+		}
+	})
+
+	
 })
 
 
