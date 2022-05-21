@@ -10,6 +10,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -23,6 +25,7 @@ function Copyright(props) {
     </Typography>
   );
 }
+
 var randomNumber = Math.floor((Math.random() * 13));
 const theme = createTheme();
 
@@ -69,13 +72,36 @@ export default function Login() {
 		},
 		
 	]
+	const navigate = useNavigate();
+	const onhandlePost = async (data) => {
+    const { ID, password } = data;
+    const postData = { ID, password };
+
+    // post
+    await axios
+      .post('/api/login', postData)
+      .then(function (response) {
+        console.log(response, '성공');
+        navigate('/Main');
+      })
+      .catch(function (err) {
+        console.log(err);
+		alert("아이디, 비밀번호를 확인해주세요")
+      });
+  };
+	
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      id: data.get('id'),
+	  
+	const joinData = {
+      ID: data.get('id'),
       password: data.get('password'),
-    });
+    };
+    const { ID, password } = joinData;
+
+	onhandlePost(joinData);
+
   };
 
   return (

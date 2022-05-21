@@ -52,10 +52,31 @@ app.post("/api/reg",cors(), async (req,res)=>{
 				}
 			})
 		}else {
+			res.sendStatus(403)
 		}
 	})
+})
 
+app.post("/api/login",cors(), async (req,res)=>{
+	var id = req.body.ID
+	var pw = req.body.password
 	
+	db.query('select * from userInfo where userId=?',id,function(err,result){
+		if (result.length==0){
+			console.log("ID Error")
+			res.sendStatus(403)
+		}
+		else{
+			if (pw == result[0].pw){
+				console.log("로그인 성공")
+				res.send({ok:true})
+			}
+			else {
+				console.log("PW Error")
+				res.sendStatus(403)
+			}
+		}
+	})
 })
 
 

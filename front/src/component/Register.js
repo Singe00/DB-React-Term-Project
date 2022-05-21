@@ -50,13 +50,16 @@ const Register = () => {
     await axios
       .post('/api/reg', postData)
       .then(function (response) {
-        console.log(response, '성공');
+		if (response.status == 200){
+			        console.log(response, '성공');
 		alert("회원가입이 완료되었습니다!")
         navigate('/');
+		}
       })
       .catch(function (err) {
         console.log(err);
         setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
+		alert("아이디가 이미 사용중입니다.")
       });
   };
 
@@ -70,7 +73,7 @@ const Register = () => {
       password: data.get('password'),
       rePassword: data.get('rePassword'),
     };
-    const { age, city, ID, name, password, rePassword } = joinData;
+    const { ID, name, password, rePassword } = joinData;
 
     // 비밀번호 유효성 체크
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
