@@ -1,0 +1,21 @@
+.search_input {
+    padding: 2px;
+    margin-right: 5px;
+	margin-left:5px;
+    margin-top: 15px;
+	
+    width: 50%;
+}
+
+.serach_submit {
+	    margin-right: 5px;
+	margin-left:5px;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+.optSearch {
+	    margin-right: 5px;
+	margin-left:5px;
+    margin-top: 14px;
+}

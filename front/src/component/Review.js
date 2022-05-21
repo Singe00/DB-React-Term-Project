@@ -18,8 +18,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainList } from './List';
-import Orders from './Orders';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useLocation } from 'react-router';
+import axios from 'axios';
+import { useState } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 function Copyright(props) {
 	return (
@@ -82,10 +89,68 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function Main() {
+function Review() {
+	const location = useLocation();
+	const pid = location.state.id;
+	const [show, setShow] = useState(true);
+	const [users, setUsers] = useState([]);
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
+	};
+
+	const onhandlePost = async (data) => {
+		const { id } = data;
+		const postData = { id };
+
+		// post
+		await axios
+			.post('/api/review', postData)
+			.then(function (response) {
+				console.log(response.data, '성공');
+				setUsers(response.data);
+			})
+			.catch(function (err) {
+				console.log(err);
+			});
+	};
+
+	console.log('eghiwhgiohwiogh[]');
+	console.log(pid);
+
+	if (show) {
+		setShow(false);
+		const joinData = {
+			id: pid,
+		};
+		const { id } = joinData;
+
+		onhandlePost(joinData);
+	}
+
+	const ShowReview = () => {
+		return (
+		<>
+			<Table>
+				<TableHead>
+					<tr>
+						<TableCell>번호</TableCell>
+						<TableCell>게임 이름</TableCell>
+						<TableCell>리뷰 내용</TableCell>
+					</tr>
+				</TableHead>
+				<TableBody>
+					{users.map((info) => (
+						<tr key={info.id}>
+							<TableCell>{info.reviewNumber}</TableCell>
+							<TableCell>{info.reviewTitle}</TableCell>
+							<TableCell>{info.reviewDetail}</TableCell>
+						</tr>
+					))}
+				</TableBody>
+			</Table>
+		</>
+		);
 	};
 
 	return (
@@ -155,7 +220,7 @@ function Main() {
 							{/* Recent Orders */}
 							<Grid item xs={12}>
 								<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-									<Orders />
+									<ShowReview />
 								</Paper>
 							</Grid>
 						</Grid>
@@ -168,5 +233,5 @@ function Main() {
 }
 
 export default function Dashboard() {
-	return <Main />;
+	return <Review />;
 }
