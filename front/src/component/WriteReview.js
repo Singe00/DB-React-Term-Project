@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function WriteReview() {
 	const [Selected, setSelected] = useState('1');
-	const [Selected2, setSelected2] = useState('1');
+	const [Selected2, setSelected2] = useState('5');
 	const [textValue, setTextValue] = useState('');
 	const handleSelect = (e) => {
 		setSelected(e.target.value);
