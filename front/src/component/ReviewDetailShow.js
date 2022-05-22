@@ -26,7 +26,6 @@ export default function ReviewDetailShow() {
 			.post('/api/showreview', postData)
 			.then(function (response) {
 				setUsers(response.data);
-				sessionStorage.setItem("rn",response.data[0].reviewNumber)
 			})
 			.catch(function (err) {
 			});
