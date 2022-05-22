@@ -16,7 +16,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainList } from './List';
-import WriteReview from './WriteReview';
+import Edit from './Edit';
 
 function Copyright(props) {
 	return (
@@ -79,7 +79,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function Write() {
+function EditPage() {
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
@@ -114,7 +114,7 @@ function Write() {
 							noWrap
 							sx={{ flexGrow: 1 }}
 						>
-							Game Review
+							Game Review Write
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -152,7 +152,7 @@ function Write() {
 							{/* Recent Orders */}
 							<Grid item xs={12}>
 								<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-									<WriteReview/>
+									<Edit/>
 								</Paper>
 							</Grid>
 						</Grid>
@@ -165,5 +165,5 @@ function Write() {
 }
 
 export default function Dashboard() {
-	return <Write />;
+	return <EditPage />;
 }

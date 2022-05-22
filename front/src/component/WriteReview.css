@@ -1,0 +1,48 @@
+.review_submit {
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 14px;
+	cursor: pointer;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.title {
+	margin-right: 15px;
+	margin-left: 5px;
+	margin-top: 14px;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.optreview {
+	margin-right: 15px;
+	margin-left: 5px;
+	margin-top: 14px;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.optreview2 {
+	margin-right: 15px;
+	margin-left: 5px;
+	margin-top: 14px;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.ReviewText {
+	width: 80%;
+	height: 300px;
+	resize: none;
+	margin-bottom: 10px;
+	font-size: 30px;
+}
+
+label {
+	margin-right: 5px;
+	margin-left: 15px;
+	margin-top: 14px;
+	margin-bottom: 10px;
+	font-size: 20px;
+}

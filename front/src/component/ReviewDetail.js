@@ -16,7 +16,8 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainList } from './List';
-import WriteReview from './WriteReview';
+import ReviewDetailShow from "./ReviewDetailShow"
+import Comment from './Comment';
 
 function Copyright(props) {
 	return (
@@ -79,7 +80,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function Write() {
+function ReviewDetail() {
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
@@ -149,10 +150,11 @@ function Write() {
 					<Toolbar />
 					<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 						<Grid container spacing={3}>
-							{/* Recent Orders */}
 							<Grid item xs={12}>
 								<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-									<WriteReview/>
+									<ReviewDetailShow/>
+									<br></br>
+									<Comment/>
 								</Paper>
 							</Grid>
 						</Grid>
@@ -165,5 +167,5 @@ function Write() {
 }
 
 export default function Dashboard() {
-	return <Write />;
+	return <ReviewDetail />;
 }

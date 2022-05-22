@@ -8,6 +8,14 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Link } from 'react-router-dom';
 
+function logout() {
+	sessionStorage.removeItem("userKey")
+	alert("로그아웃되었습니다!")
+	return (
+		0
+	);
+}
+
 export const mainList = (
 	<React.Fragment>
 		<Link to="/Main">
@@ -28,7 +36,7 @@ export const mainList = (
 			</ListItemButton>
 		</Link>
 
-		<Link to="/">
+		<Link to="/" onClick={logout}>
 			<ListItemButton>
 				<ListItemIcon>
 					<LockOpenIcon />

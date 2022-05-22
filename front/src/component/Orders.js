@@ -27,18 +27,16 @@ export default function Orders() {
     await axios
       .post('/api/info', postData)
       .then(function (response) {
-        console.log(response.data, '성공');
 		setUsers(response.data);
       })
       .catch(function (err) {
-        console.log(err);
       });
   };
 	
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-	  
+	 
 	const joinData = {
       opt: data.get('opt'),
       search: data.get('search'),
@@ -106,6 +104,7 @@ export default function Orders() {
 				<option value="TPS"></option>
 				<option value="캐쥬얼"></option>
 				<option value="배틀로얄"></option>
+				<option value="FPS"></option>
             </datalist>
               <input type='submit' value='검색' className='serach_submit'/>
             </form>

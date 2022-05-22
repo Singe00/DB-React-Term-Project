@@ -9,37 +9,20 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainList } from './List';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-
-function Copyright(props) {
-	return (
-		<Typography variant="body2" color="text.secondary" align="center" {...props}>
-			{'Copyright © '}
-			<Link color="inherit" href="https://mui.com/">
-				Your Website
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-}
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -92,11 +75,14 @@ const mdTheme = createTheme();
 function Review() {
 	const location = useLocation();
 	const pid = location.state.id;
-	const [show, setShow] = useState(true);
 	const [users, setUsers] = useState([]);
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
+	};
+	
+	const setRN = (params) => {
+		sessionStorage.setItem("rn",params)
 	};
 
 	const onhandlePost = async (data) => {
@@ -107,49 +93,64 @@ function Review() {
 		await axios
 			.post('/api/review', postData)
 			.then(function (response) {
-				console.log(response.data, '성공');
 				setUsers(response.data);
 			})
-			.catch(function (err) {
-				console.log(err);
-			});
+			.catch(function (err) {});
 	};
 
-	console.log('eghiwhgiohwiogh[]');
-	console.log(pid);
-
-	if (show) {
-		setShow(false);
+	useEffect(() => {
 		const joinData = {
 			id: pid,
 		};
-		const { id } = joinData;
 
 		onhandlePost(joinData);
-	}
+	}, []);
 
 	const ShowReview = () => {
 		return (
-		<>
-			<Table>
-				<TableHead>
-					<tr>
-						<TableCell>번호</TableCell>
-						<TableCell>게임 이름</TableCell>
-						<TableCell>리뷰 내용</TableCell>
-					</tr>
-				</TableHead>
-				<TableBody>
-					{users.map((info) => (
-						<tr key={info.id}>
-							<TableCell>{info.reviewNumber}</TableCell>
-							<TableCell>{info.reviewTitle}</TableCell>
-							<TableCell>{info.reviewDetail}</TableCell>
+			<>
+				<Table>
+					<TableHead>
+						<tr>
+							<TableCell>로고</TableCell>
+							<TableCell>작성자</TableCell>
+							<TableCell>제목</TableCell>
+							<TableCell>별점</TableCell>
+							<TableCell>리뷰내용</TableCell>
 						</tr>
-					))}
-				</TableBody>
-			</Table>
-		</>
+					</TableHead>
+					<TableBody>
+						{users.map((info) => (
+							<tr key={info.reviewNumber}>
+								<TableCell>
+									<img
+										src={require(`./images/${info.filename}`)}
+										width="50"
+										height="50"
+									/>
+								</TableCell>
+								<TableCell>{info.userName}</TableCell>
+								<TableCell>{info.reviewTitle}</TableCell>
+								<TableCell>
+									<img
+										src={require(`./images/star${info.reviewScore}` + `.png`)}
+										width="150"
+										height="50"
+									/>
+								</TableCell>
+								<TableCell>
+									<Link
+										to={`/ReviewDetail/${info.reviewNumber}`}
+										state={{ id: info.reviewNumber }}
+									onClick={() => setRN(`${info.reviewNumber}`)}>
+										이동
+									</Link>
+								</TableCell>
+							</tr>
+						))}
+					</TableBody>
+				</Table>
+			</>
 		);
 	};
 
@@ -182,7 +183,7 @@ function Review() {
 							noWrap
 							sx={{ flexGrow: 1 }}
 						>
-							Dashboard
+							Game Review
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -224,7 +225,6 @@ function Review() {
 								</Paper>
 							</Grid>
 						</Grid>
-						<Copyright sx={{ pt: 4 }} />
 					</Container>
 				</Box>
 			</Box>

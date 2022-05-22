@@ -27,9 +27,22 @@ CREATE TABLE review (
     reviewDetail VARCHAR(500) NULL, #리뷰 내용use
     reviewUserKey INT, #작성자 키
     reviewGameKey INT, #해당 게임
+    reviewScore VARCHAR(2),
     PRIMARY KEY (reviewNumber),
-    FOREIGN KEY (reviewUserKey) REFERENCES userInfo(userKey),
-    FOREIGN KEY (reviewGameKey) REFERENCES game(id)
+    FOREIGN KEY (reviewUserKey) REFERENCES userInfo(userKey) ON DELETE CASCADE,
+    FOREIGN KEY (reviewGameKey) REFERENCES game(id) ON DELETE CASCADE
+) ENGINE = INNODB
+    DEFAULT CHARACTER SET utf8
+    DEFAULT COLLATE utf8_general_ci;
+    
+CREATE TABLE comment (
+    commentNumber INT NOT NULL AUTO_INCREMENT,
+    commentDetail VARCHAR(200) NULL, #리뷰 내용use
+    commentUserKey INT, #작성자 키
+    commentReviewKey INT,
+    PRIMARY KEY (commentNumber),
+    FOREIGN KEY (commentUserKey) REFERENCES userInfo(userKey) ON DELETE CASCADE,
+    FOREIGN KEY (commentReviewKey) REFERENCES review(reviewNumber) ON DELETE CASCADE
 ) ENGINE = INNODB
     DEFAULT CHARACTER SET utf8
     DEFAULT COLLATE utf8_general_ci;
@@ -69,7 +82,7 @@ INSERT INTO userInfo VALUES
     (NULL,"관리자", "admin", "admin");
     
 INSERT INTO review VALUES
-    (NULL,"ㄵ", "ㄵ", 1,1);
+    (NULL,"ㄵ", "ㄵ", 1,1,"2");
 
 INSERT INTO company VALUES
     (NULL, "넥슨", "한국", "1994년도"),

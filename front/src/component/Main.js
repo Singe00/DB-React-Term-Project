@@ -117,7 +117,7 @@ function Main() {
 							noWrap
 							sx={{ flexGrow: 1 }}
 						>
-							Dashboard
+							Game Review
 						</Typography>
 					</Toolbar>
 				</AppBar>

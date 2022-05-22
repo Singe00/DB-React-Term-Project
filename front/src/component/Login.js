@@ -73,7 +73,7 @@ export default function Login() {
 		},
 	];
 	const navigate = useNavigate();
-
+	
 	const onhandlePost = async (data) => {
 		const { ID, password } = data;
 		const postData = { ID, password };
@@ -82,11 +82,10 @@ export default function Login() {
 		await axios
 			.post('/api/login', postData)
 			.then(function (response) {
-				console.log(response, '성공');
+				sessionStorage.setItem('userKey',response.data[0].userKey)
 				navigate('/Main');
 			})
 			.catch(function (err) {
-				console.log(err);
 				alert('아이디, 비밀번호를 확인해주세요');
 			});
 	};
@@ -99,7 +98,6 @@ export default function Login() {
 			ID: data.get('id'),
 			password: data.get('password'),
 		};
-		const { ID, password } = joinData;
 
 		onhandlePost(joinData);
 	};

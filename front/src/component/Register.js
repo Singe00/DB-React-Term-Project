@@ -51,13 +51,11 @@ const Register = () => {
 			.post('/api/reg', postData)
 			.then(function (response) {
 				if (response.status == 200) {
-					console.log(response, '성공');
 					alert('회원가입이 완료되었습니다!');
 					navigate('/');
 				}
 			})
 			.catch(function (err) {
-				console.log(err);
 				setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
 				alert('아이디가 이미 사용중입니다.');
 			});
