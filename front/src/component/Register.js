@@ -1,3 +1,4 @@
+//20181131 조시완
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,17 +19,18 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
 
+//mui스타일
 const FormHelperTexts = styled(FormHelperText)`
 	width: 100%;
 	padding-left: 16px;
 	font-weight: 700;
 	color: #d32f2f;
 `;
-
 const Boxs = styled(Box)`
 	padding-bottom: 40px;
 `;
 
+//Register 태그
 const Register = () => {
 	const theme = createTheme();
 	const [checked, setChecked] = useState(false);
@@ -37,30 +39,31 @@ const Register = () => {
 	const [nameError, setNameError] = useState('');
 	const [registerError, setRegisterError] = useState('');
 	const navigate = useNavigate();
-
+	
+	//약관체크확인
 	const handleAgree = (event) => {
 		setChecked(event.target.checked);
 	};
-
+	//이벤트 처리
 	const onhandlePost = async (data) => {
-		const { ID, name, password } = data;
+		const { ID, name, password } = data; //데이터처리
 		const postData = { ID, name, password };
 
 		// post
 		await axios
-			.post('/api/reg', postData)
+			.post('/api/reg', postData) //회원가입 정보 전달
 			.then(function (response) {
-				if (response.status == 200) {
-					alert('회원가입이 완료되었습니다!');
-					navigate('/');
+				if (response.status == 200) { //성공
+					alert('회원가입이 완료되었습니다!'); //알림
+					navigate('/'); //로그인화면으로 이동
 				}
 			})
-			.catch(function (err) {
+			.catch(function (err) { //에러 처리
 				setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
 				alert('아이디가 이미 사용중입니다.');
 			});
 	};
-
+	//회원가입 입력 정보 폼 전달 이벤트
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -100,7 +103,7 @@ const Register = () => {
 			onhandlePost(joinData);
 		}
 	};
-
+	//컴포넌트
 	return (
 		<ThemeProvider theme={theme}>
 			<Container component="main" maxWidth="xs">

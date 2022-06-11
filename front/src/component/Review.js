@@ -1,3 +1,4 @@
+//20181131 조시완
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -23,9 +24,9 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import { Link } from 'react-router-dom';
-
+//스타일
 const drawerWidth = 240;
-
+//MUI탬플릿
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -80,11 +81,11 @@ function Review() {
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
-	
+	//현재 보는 리뷰 정보 저장
 	const setRN = (params) => {
 		sessionStorage.setItem("rn",params)
 	};
-
+	//이벤트 처리
 	const onhandlePost = async (data) => {
 		const { id } = data;
 		const postData = { id };
@@ -97,8 +98,9 @@ function Review() {
 			})
 			.catch(function (err) {});
 	};
-
+	//화면 최초 접속 시 실행
 	useEffect(() => {
+		//기존에 작성되어 있는 리뷰 출력
 		const joinData = {
 			id: pid,
 		};

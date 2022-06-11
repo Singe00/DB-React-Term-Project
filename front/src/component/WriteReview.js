@@ -1,3 +1,4 @@
+//20181131 조시완
 import * as React from 'react';
 import Link from '@mui/material/Link';
 import { useState } from 'react';
@@ -11,48 +12,48 @@ export default function WriteReview() {
 	const [textValue, setTextValue] = useState('');
 	const handleSelect = (e) => {
 		setSelected(e.target.value);
-	};
+	}; //양식처리1
 
 	const handleSelect2 = (e) => {
 		setSelected2(e.target.value);
-	};
+	};//양식처리2
 	const handleSetValue = (e) => {
 		setTextValue(e.target.value);
 	};
 	const navigate = useNavigate();
-
+	//이벤트처리
 	const onhandlePost = async (data) => {
 		const { opt, star, title, reviewtext, userID } = data;
 		const postData = { opt, star, title, reviewtext, userID };
 
 		// post
 		await axios
-			.post('/api/reviewtext', postData)
-			.then(function (response) {
-				alert('리뷰 작성이 완료되었습니다!');
-				navigate('/Main');
+			.post('/api/reviewtext', postData)//데이터 전달
+			.then(function (response) {//성공시
+				alert('리뷰 작성이 완료되었습니다!');//작성완료 알림
+				navigate('/Main');//메인화면으로 이동
 			})
-			.catch(function (err) {
-				alert('이미 작성한 리뷰가 존재합니다.');
+			.catch(function (err) {//실패시
+				alert('이미 작성한 리뷰가 존재합니다.');//에러 알림
 			});
 	};
-
+	//입력 폼 이벤트 처리
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-
+		//입력데이터 처리
 		const joinData = {
 			opt: data.get('opt'),
 			star: data.get('star'),
 			title: data.get('title'),
 			reviewtext: { textValue }.textValue,
 			userID: sessionStorage.getItem('userKey'),
-		};
-		if (joinData.title !== '' && textValue !== '') {
-			const { opt, star, title, reviewtext, userID } = joinData;
+		};//데이터 전달
+		if (joinData.title !== '' && textValue !== '') {//필수란이 비지 않았다면
+			const { opt, star, title, reviewtext, userID } = joinData;//데이터 전달
 			onhandlePost(joinData);
-		} else {
-			alert('제목과 리뷰를 작성해주세요!');
+		} else {//필수란이 비었다면
+			alert('제목과 리뷰를 작성해주세요!');//알림
 		}
 	};
 

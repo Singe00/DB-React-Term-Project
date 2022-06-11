@@ -1,3 +1,5 @@
+//20181131 조시완
+
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+//템플릿
 function Copyright(props) {
 	return (
 		<Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -26,10 +29,14 @@ function Copyright(props) {
 	);
 }
 
+//랜덤 이미지 출력을 위한 난수
 var randomNumber = Math.floor(Math.random() * 13);
 const theme = createTheme();
 
+//Login 태그
 export default function Login() {
+	
+	//랜덤으로 출력될 이미지 리스트
 	const imageUrl = [
 		{
 			imgUrl: 'url(https://images.alphacoders.com/472/thumb-1920-472498.jpg)',
@@ -72,36 +79,37 @@ export default function Login() {
 				'url(https://7wallpapers.net/wp-content/uploads/6_StarCraft-2-Legacy-of-the-Void.jpg)',
 		},
 	];
+	//네비게이션
 	const navigate = useNavigate();
-	
+	//로그인 api
 	const onhandlePost = async (data) => {
 		const { ID, password } = data;
 		const postData = { ID, password };
 
-		// post
+		// post로 입력한 로그인 폼 전달
 		await axios
 			.post('/api/login', postData)
 			.then(function (response) {
-				sessionStorage.setItem('userKey',response.data[0].userKey)
-				navigate('/Main');
+				sessionStorage.setItem('userKey',response.data[0].userKey) //로그인 성공 시 유저 정보 저장
+				navigate('/Main'); //메인화면으로 이동
 			})
 			.catch(function (err) {
-				alert('아이디, 비밀번호를 확인해주세요');
+				alert('아이디, 비밀번호를 확인해주세요'); //
 			});
 	};
-
+	//로그인 버튼 이벤트
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-
+		//폼의 값을
 		const joinData = {
 			ID: data.get('id'),
 			password: data.get('password'),
 		};
-
+		//아래 함수로 전달
 		onhandlePost(joinData);
 	};
-
+	//mui 템플릿
 	return (
 		<ThemeProvider theme={theme}>
 			<Grid container component="main" sx={{ height: '100vh' }}>

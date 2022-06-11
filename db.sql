@@ -12,7 +12,7 @@ CREATE DATABASE IF NOT EXISTS db
 use db;
 
 CREATE TABLE userInfo (
-    userKey INT NOT NULL AUTO_INCREMENT,
+    userKey INT NOT NULL AUTO_INCREMENT, #유저키
     userName VARCHAR(20) NULL, #이름
     userId VARCHAR(20) NULL,    #아이디
     pw VARCHAR(20) NULL,    #비번
@@ -82,7 +82,7 @@ INSERT INTO userInfo VALUES
     (NULL,"관리자", "admin", "admin");
     
 INSERT INTO review VALUES
-    (NULL,"ㄵ", "ㄵ", 1,1,"2");
+    (NULL,"꿀잼", "꿀잼", 1,1,"5");
 
 INSERT INTO company VALUES
     (NULL, "넥슨", "한국", "1994년도"),

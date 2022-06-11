@@ -1,3 +1,5 @@
+//20181131 조시완
+//MUI탬플릿에서 출력할 TAG만 변경
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -155,7 +157,7 @@ function Main() {
 							{/* Recent Orders */}
 							<Grid item xs={12}>
 								<Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-									<Orders />
+									<Orders /> 
 								</Paper>
 							</Grid>
 						</Grid>

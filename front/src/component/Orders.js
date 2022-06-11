@@ -1,3 +1,4 @@
+//20181131 조시완
 import * as React from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
@@ -11,32 +12,34 @@ import './Orders.css';
 import axios from 'axios';
 import GameList from './GameList';
 
+//검색 태그
 export default function Orders() {
   const [Selected, setSelected] = useState("1");
   const [users, setUsers] = useState([]);
+	//자동완성
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
 
-	
+	//이벤트
   const onhandlePost = async (data) => {
     const { opt, search } = data;
     const postData = { opt, search };
 
     // post
     await axios
-      .post('/api/info', postData)
-      .then(function (response) {
+      .post('/api/info', postData)//검색정보 전달
+      .then(function (response) {//성공
 		setUsers(response.data);
       })
-      .catch(function (err) {
+      .catch(function (err) {//실패
       });
   };
-	
+	//검색창 이벤트
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-	 
+	 //데이터 처리
 	const joinData = {
       opt: data.get('opt'),
       search: data.get('search'),
